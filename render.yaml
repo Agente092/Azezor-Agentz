@@ -1,0 +1,50 @@
+# =================================
+# Configuración de Render para WhatsApp Business Advisor
+# =================================
+
+services:
+  # Servicio Web Principal (Frontend + Backend)
+  - type: web
+    name: whatsapp-advisor
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build && npx prisma generate
+    startCommand: npm run start:production
+    healthCheckPath: /health
+    
+    # Variables de entorno requeridas
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: DATABASE_URL
+        fromDatabase:
+          name: whatsapp-advisor-db
+          property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false  # Debes configurar esto manualmente
+      - key: NEXTAUTH_SECRET
+        generateValue: true
+      - key: NEXTAUTH_URL
+        value: https://whatsapp-advisor.onrender.com
+      - key: ADMIN_EMAIL
+        value: admin@advisor.com
+      - key: ADMIN_PASSWORD
+        sync: false  # Debes configurar esto manualmente
+      - key: LOG_LEVEL
+        value: info
+
+# Base de datos PostgreSQL
+databases:
+  - name: whatsapp-advisor-db
+    databaseName: whatsapp_advisor
+    user: advisor_user
+    plan: starter
+
+# Configuración de disco persistente para WhatsApp sessions
+# (Render Free tier no soporta discos persistentes, usar con plan pagado)
+# disks:
+#   - name: whatsapp-sessions
+#     mountPath: /app/auth_info_baileys
+#     sizeGB: 1
