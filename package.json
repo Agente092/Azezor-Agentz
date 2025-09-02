@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "lint": "next lint",
     "server": "node server/index.js",
     "dev:server": "nodemon server/index.js",
@@ -21,8 +22,11 @@
     "health": "powershell -Command \"Invoke-RestMethod http://localhost:3001/health\"",
     "build:production": "npm run build && npm run db:deploy",
     "start:production": "NODE_ENV=production node server/index.js",
+    "start:backend": "node server/index.js",
+    "build:backend": "npx prisma generate && npx prisma db push && node scripts/init-database.js",
     "db:generate": "npx prisma generate",
     "db:deploy": "npx prisma db push",
+    "db:init": "node scripts/init-database.js",
     "postinstall": "npx prisma generate"
   },
   "dependencies": {
