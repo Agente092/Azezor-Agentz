@@ -2,169 +2,182 @@
 
 Sistema completo de asesoría empresarial a través de WhatsApp con panel de administración profesional.
 
-## 🌟 Características Principales
+## 🌟 Características
 
-- **🤖 Bot de WhatsApp Inteligente** - Integración con Baileys para comunicación directa
-- **🧠 IA Especializada** - Gemini AI con base de conocimiento empresarial extenso
-- **👥 Gestión de Clientes** - Panel profesional para administrar suscripciones
-- **📊 Dashboard Analytics** - Métricas y estadísticas en tiempo real
-- **🔔 Notificaciones Automáticas** - Alertas de vencimiento por WhatsApp
-- **🛡️ Seguridad Avanzada** - Autenticación JWT y control de acceso
-- **🚀 Production Ready** - Configurado para despliegue en Render.com
+- **Panel de Administración Moderno**: UI profesional y responsive
+- **Gestión de Clientes**: Agregar, editar y controlar suscripciones
+- **WhatsApp Bot Inteligente**: Integración con Baileys
+- **IA Especializada**: Gemini AI con base de conocimiento empresarial
+- **Sistema de Límites**: Control automático de expiración de suscripciones
+- **Notificaciones Automáticas**: Alertas de vencimiento por WhatsApp
+- **Dashboard Analytics**: Métricas en tiempo real
+- **Responsive Design**: Funciona en todos los dispositivos
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tecnologías
 
 ### Frontend
-- **Next.js 14** + TypeScript
-- **Tailwind CSS** + Shadcn/ui  
-- **Socket.IO** para tiempo real
-- **React Hook Form** para formularios
+- **Next.js 14** - Framework React
+- **TypeScript** - Tipado estático
+- **Tailwind CSS** - Estilos utilitarios
+- **Shadcn/ui** - Componentes UI profesionales
+- **Lucide React** - Iconos modernos
 
 ### Backend
-- **Node.js** + Express
-- **Prisma ORM** + PostgreSQL
-- **Baileys** para WhatsApp Web
-- **Winston** para logging estructurado
-- **JWT** para autenticación segura
+- **Node.js** - Servidor backend
+- **Express** - Framework web
+- **Prisma** - ORM para base de datos
+- **PostgreSQL** - Base de datos
+- **Baileys** - WhatsApp Web API
+- **Gemini AI** - Inteligencia artificial
 
-### Inteligencia Artificial
-- **Google Gemini AI** (Pool de 15 APIs)
-- **Rotación automática** de APIs
-- **Sistema de personalidad adaptativa**
-- **Verificador de hechos legales**
-- **Base de conocimiento especializada**
+## 🚀 Instalación
 
-## 🚀 Instalación Rápida
-
+### 1. Clonar el repositorio
 ```bash
-# 1. Clonar repositorio
-git clone https://github.com/Agente092/Azezor-Agentz.git
-cd Azezor-Agentz
+git clone <repository-url>
+cd whatsapp-business-advisor
+```
 
-# 2. Instalar dependencias
+### 2. Instalar dependencias
+```bash
 npm install
+```
 
-# 3. Configurar variables de entorno
+### 3. Configurar variables de entorno
+```bash
 cp .env.example .env
-# Editar .env con tus configuraciones
+```
 
-# 4. Configurar base de datos
+Editar `.env` con tus configuraciones:
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/whatsapp_advisor"
+
+# Gemini AI
+GEMINI_API_KEY="AIzaSyCwhRvWvFOfJRMk9qQM2U1fDZaa7_HiB_A"
+
+# NextAuth
+NEXTAUTH_SECRET="your-secret-key-here"
+NEXTAUTH_URL="http://localhost:3000"
+
+# Admin Credentials
+ADMIN_EMAIL="admin@advisor.com"
+ADMIN_PASSWORD="admin123"
+```
+
+### 4. Configurar base de datos
+```bash
 npx prisma generate
 npx prisma db push
-
-# 5. Iniciar desarrollo (DOS terminales)
-npm run dev        # Frontend (puerto 3000)
-npm run dev:server # Backend (puerto 3001)
 ```
 
-## 📱 Configuración WhatsApp
+### 5. Iniciar el sistema
 
-1. **Iniciar backend**: `npm run dev:server`
-2. **Acceder al panel**: `http://localhost:3000`
-3. **Conectar WhatsApp**: Ir a sección "Bot"
-4. **Escanear QR**: Con WhatsApp Web
-5. **¡Listo!**: Bot conectado y funcionando
-
-## 🌐 Despliegue en Producción
-
-**✅ COMPLETAMENTE LISTO PARA RENDER.COM**
-
-Archivos de configuración incluidos:
-- ⚙️ `render.yaml` - Configuración automática
-- 🐳 `Dockerfile` - Contenedorización
-- 📦 Scripts de producción en `package.json`
-- 🔐 Variables de entorno documentadas
-- 🗄️ PostgreSQL configurado y listo
-
-**Documentación completa:**
-- 📖 `DEPLOY-RENDER.md` - Guía paso a paso
-- ✅ `DEPLOYMENT-CHECKLIST.md` - Lista de verificación
-
-## 🎯 Credenciales Por Defecto
-
-```
-Email: admin@advisor.com
-Password: admin123
-```
-
-## 🏢 Especialización Empresarial
-
-Base de conocimiento enfocada en asesoría empresarial peruana:
-
-- **💰 Estrategias Fiscales** - Optimización tributaria legal
-- **🏢 Estructuras Empresariales** - Holdings, operadoras, offshore  
-- **🏠 Inversiones Inmobiliarias** - BRRRR, Rent to Rent, estrategias avanzadas
-- **🛡️ Protección Patrimonial** - Fideicomisos, blindaje de activos
-- **⚖️ Aspectos Legales** - Normativas peruanas, tipos de empresas
-- **🔍 Trucos Fiscales** - Estrategias ocultas y combinaciones
-
-## 📊 Funcionalidades Avanzadas
-
-### 🎯 Sistema de Clientes Inteligente
-- ✅ Gestión automática de suscripciones
-- ✅ Seguimiento de actividad por cliente
-- ✅ Notificaciones automáticas de vencimiento
-- ✅ Control de acceso dinámico al bot
-
-### 🤖 Bot con IA Especializada
-- ✅ Respuestas contextuales especializadas
-- ✅ Reconocimiento de intención empresarial
-- ✅ Sistema de memoria conversacional
-- ✅ Personalidad adaptativa por tipo de cliente
-
-### 📈 Panel de Administración Profesional
-- ✅ Dashboard con métricas en tiempo real
-- ✅ Gestión visual e intuitiva de clientes
-- ✅ Monitoreo del estado del bot
-- ✅ Logs detallados y estadísticas
-
-### 🔧 Arquitectura Robusta
-- ✅ Pool de 15 APIs de Gemini con rotación
-- ✅ Sistema de backups de sesiones WhatsApp
-- ✅ Logging estructurado con Winston
-- ✅ Health checks para monitoreo
-
-## 🚨 Solución de Problemas
-
-### Bot no conecta WhatsApp
+**Terminal 1 - Frontend:**
 ```bash
-# Limpiar sesión y reiniciar
-rm -rf auth_info_baileys/*
+npm run dev
+```
+
+**Terminal 2 - Backend:**
+```bash
 npm run dev:server
 ```
 
+## 📱 Configuración de WhatsApp
+
+1. Inicia el servidor backend
+2. Escanea el código QR que aparece en la consola con WhatsApp Web
+3. El bot se conectará automáticamente
+
+## 🎯 Uso del Sistema
+
+### Panel de Administración
+1. Accede a `http://localhost:3000`
+2. Inicia sesión con las credenciales de admin
+3. Gestiona clientes desde el dashboard
+
+### Agregar Clientes
+1. Click en "Agregar Cliente"
+2. Completa nombre, teléfono y fecha de expiración
+3. El cliente recibirá acceso inmediato al bot
+
+### Funcionalidades del Bot
+- Respuestas inteligentes basadas en conocimiento empresarial
+- Control automático de acceso por suscripción
+- Notificaciones de vencimiento automáticas
+- Historial de conversaciones
+
+## 📊 Base de Conocimiento
+
+El sistema incluye una base de conocimiento especializada en:
+
+- **Estrategias Fiscales**: Optimización tributaria legal
+- **Estructuras Empresariales**: Holdings, operadoras, offshore
+- **Inversiones Inmobiliarias**: BRRRR, Rent to Rent
+- **Protección Patrimonial**: Fideicomisos, blindaje de activos
+- **Aspectos Legales**: Normativas peruanas, tipos de empresas
+
+## 🔧 Configuración Avanzada
+
+### Personalizar Mensajes del Bot
+Edita `server/services/whatsapp.js` para modificar mensajes automáticos.
+
+### Ajustar Límites de IA
+Modifica `server/services/gemini.js` para cambiar límites de uso.
+
+### Personalizar UI
+Los estilos están en `app/globals.css` y componentes en `components/ui/`.
+
+## 📈 Monitoreo
+
+### Logs del Sistema
+- Frontend: Consola del navegador
+- Backend: Terminal del servidor
+- WhatsApp: Logs en consola con emojis
+
+### Métricas Disponibles
+- Clientes totales/activos/expirados
+- Mensajes por día/total
+- Tasa de actividad
+- Estado del bot en tiempo real
+
+## 🛡️ Seguridad
+
+- Autenticación JWT
+- Validación de entrada
+- Control de acceso por token
+- Rate limiting en IA
+- Sanitización de datos
+
+## 🚨 Solución de Problemas
+
+### Bot no se conecta
+1. Verifica que WhatsApp Web esté disponible
+2. Elimina la carpeta `auth_info_baileys`
+3. Reinicia el servidor backend
+
 ### Error de base de datos
-```bash
-# Verificar y aplicar schema
-npx prisma db push
-npx prisma generate
-```
+1. Verifica la conexión PostgreSQL
+2. Ejecuta `npx prisma db push`
+3. Revisa las variables de entorno
 
-### Límites de API alcanzados
-- El sistema automáticamente rota entre 15 APIs
-- Monitorea uso en `/api/pool/stats`
+### Límites de Gemini AI
+- El plan gratuito tiene límites por hora
+- Considera upgrade a plan Pro si es necesario
 
-## 📞 Soporte y Monitoreo
+## 📞 Soporte
 
-**URLs importantes:**
-- 🏠 **App**: `http://localhost:3000`
-- ❤️ **Health**: `http://localhost:3001/health`
-- 📊 **Stats**: `http://localhost:3001/api/pool/stats`
+Para soporte técnico o consultas:
+- Revisa los logs en consola
+- Verifica configuración de variables de entorno
+- Asegúrate de que todos los servicios estén ejecutándose
 
-**Verificaciones:**
-- 📧 Revisar logs en consola
-- 🔧 Verificar variables de entorno
-- 🔄 Reiniciar servicios si es necesario
+## 🎉 ¡Listo para Usar!
 
----
+Tu sistema de asesoría empresarial por WhatsApp está completamente configurado y listo para brindar un servicio profesional a tus clientes.
 
-## 🎉 ¡Sistema Empresarial Listo!
+**Credenciales por defecto:**
+- Email: `admin@advisor.com`
+- Password: `admin123`
 
-Tu plataforma de asesoría empresarial automatizada está completamente preparada para:
-
-- **Atender clientes 24/7** con IA especializada
-- **Gestionar suscripciones** automáticamente  
-- **Brindar asesoría fiscal** especializada en Perú
-- **Escalar tu negocio** sin límites técnicos
-
-**🚀 ¡Despliega hoy y comienza a revolucionar la asesoría empresarial!**
+¡Disfruta de tu nuevo sistema de asesoría automatizada! 🚀

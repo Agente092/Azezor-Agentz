@@ -28,7 +28,7 @@ git add .
 git commit -m "🚀 Initial commit - WhatsApp Business Advisor ready for production"
 
 # Conectar con GitHub
-git remote add origin https://github.com/Agente092/Azezor-Agentz.git
+git remote add origin https://github.com/TU-USUARIO/TU-REPOSITORIO.git
 
 # Subir código
 git push -u origin main

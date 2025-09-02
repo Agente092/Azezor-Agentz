@@ -4,25 +4,35 @@ import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Edit, Trash2, MessageSquare, Clock, User, Phone, Calendar } from 'lucide-react'
+import { 
+  MoreHorizontal, 
+  Edit, 
+  Trash2, 
+  MessageSquare, 
+  Clock,
+  User,
+  Phone,
+  Calendar
+} from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import ClientDialog from './ClientDialog'
 
 interface Client {
   id: string
   name: string
-  phoneNumber: string
+  phoneNumber: string  // 🔧 CAMBIO: phoneNumber en lugar de phone
   isNameConfirmed: boolean
   firstSeen: string
-  lastSeen: string
+  lastSeen: string     // 🔧 CAMBIO: lastSeen en lugar de lastActivity
   messageCount: number
-  status: 'new' | 'active' | 'vip'
+  status: 'new' | 'active' | 'vip'  // 🔧 CAMBIO: status en lugar de isActive
   topics: string[]
   preferences: Record<string, any>
-  phone?: string
-  expiryDate?: string
-  isActive?: boolean
-  lastActivity?: string
+  // Campos opcionales para compatibilidad
+  phone?: string       // Para compatibilidad con versiones anteriores
+  expiryDate?: string  // Para sistemas con fechas de expiración
+  isActive?: boolean   // Para compatibilidad con versiones anteriores
+  lastActivity?: string // Para compatibilidad con versiones anteriores
 }
 
 interface ClientListProps {
@@ -36,10 +46,16 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
 
   const handleDeleteClient = async (clientId: string) => {
     if (!confirm('¿Estás seguro de que quieres eliminar este cliente?')) return
+
     setDeletingClient(clientId)
     try {
-      const response = await fetch(`/api/clients/${clientId}`, { method: 'DELETE' })
-      if (response.ok) onClientUpdated()
+      const response = await fetch(`/api/clients/${clientId}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        onClientUpdated()
+      }
     } catch (error) {
       console.error('Error deleting client:', error)
     } finally {
@@ -47,25 +63,53 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
     }
   }
 
+  const handleToggleStatus = async (clientId: string, currentStatus: boolean) => {
+    try {
+      const response = await fetch(`/api/clients/${clientId}/toggle`, {
+        method: 'PATCH'
+      })
+
+      if (response.ok) {
+        onClientUpdated()
+      }
+    } catch (error) {
+      console.error('Error toggling client status:', error)
+    }
+  }
+
+  // 🔧 NUEVA FUNCIÓN: Promocionar a VIP
   const promoteToVIP = async (clientId: string, phoneNumber: string) => {
     try {
       const response = await fetch('/api/clients/promote', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ phone: phoneNumber })
       })
-      if (response.ok) onClientUpdated()
+
+      if (response.ok) {
+        onClientUpdated() // Recargar la lista
+        console.log('Cliente promocionado a VIP exitosamente')
+      } else {
+        console.error('Error al promocionar cliente')
+      }
     } catch (error) {
       console.error('Error promoting client to VIP:', error)
     }
   }
 
   const getStatusBadge = (client: Client) => {
+    // 🔧 ADAPTAR A LA NUEVA ESTRUCTURA DE DATOS
     switch (client.status) {
-      case 'new': return <Badge variant="secondary">Nuevo</Badge>
-      case 'active': return <Badge variant="default">Activo</Badge>
-      case 'vip': return <Badge variant="destructive">VIP</Badge>
-      default: return <Badge variant="secondary">Desconocido</Badge>
+      case 'new':
+        return <Badge variant="secondary">Nuevo</Badge>
+      case 'active':
+        return <Badge variant="success">Activo</Badge>
+      case 'vip':
+        return <Badge variant="warning">VIP</Badge>
+      default:
+        return <Badge variant="secondary">Desconocido</Badge>
     }
   }
 
@@ -74,7 +118,9 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
       <div className="text-center py-12">
         <User className="w-12 h-12 text-gray-400 mx-auto mb-4" />
         <h3 className="text-lg font-medium text-gray-900 mb-2">No hay clientes</h3>
-        <p className="text-gray-500">Agrega tu primer cliente para comenzar a gestionar suscripciones.</p>
+        <p className="text-gray-500">
+          Agrega tu primer cliente para comenzar a gestionar suscripciones.
+        </p>
       </div>
     )
   }
@@ -83,6 +129,7 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
     <>
       <div className="space-y-4">
         {clients.map((client) => {
+          // 🔧 OBTENER PROPIEDADES CON FALLBACKS DE COMPATIBILIDAD
           const phoneNumber = client.phoneNumber || client.phone || 'No disponible'
           const lastActivity = client.lastSeen || client.lastActivity
           
@@ -90,6 +137,7 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
             <Card key={client.id} className="card-hover">
               <CardContent className="p-6">
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-4 lg:space-y-0">
+                  {/* Client Info */}
                   <div className="flex-1 space-y-3">
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
@@ -135,31 +183,52 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
                       )}
                     </div>
                     
+                    {/* Mostrar tópicos si existen */}
                     {client.topics && client.topics.length > 0 && (
                       <div className="flex items-center space-x-2 mt-2">
                         <span className="text-xs text-gray-500">Temas:</span>
                         {client.topics.slice(0, 3).map((topic, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">{topic}</Badge>
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {topic}
+                          </Badge>
                         ))}
                         {client.topics.length > 3 && (
-                          <span className="text-xs text-gray-400">+{client.topics.length - 3} más</span>
+                          <span className="text-xs text-gray-400">
+                            +{client.topics.length - 3} más
+                          </span>
                         )}
                       </div>
                     )}
                   </div>
 
+                  {/* Actions */}
                   <div className="flex items-center space-x-2">
                     {client.status !== 'vip' && (
-                      <Button variant="outline" size="sm" onClick={() => promoteToVIP(client.id, phoneNumber)}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => promoteToVIP(client.id, client.phoneNumber || client.phone || '')}
+                      >
                         👑 Promocionar a VIP
                       </Button>
                     )}
                     
-                    <Button variant="outline" size="sm" onClick={() => setEditingClient(client)}>
-                      <Edit className="w-4 h-4 mr-1" />Editar
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setEditingClient(client)}
+                    >
+                      <Edit className="w-4 h-4 mr-1" />
+                      Editar
                     </Button>
                     
-                    <Button variant="outline" size="sm" onClick={() => handleDeleteClient(client.id)} disabled={deletingClient === client.id} className="text-red-600 hover:text-red-700">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDeleteClient(client.id)}
+                      disabled={deletingClient === client.id}
+                      className="text-red-600 hover:text-red-700 hover:border-red-300"
+                    >
                       {deletingClient === client.id ? (
                         <div className="w-4 h-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
                       ) : (
@@ -174,6 +243,7 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
         })}
       </div>
 
+      {/* Edit Client Dialog */}
       {editingClient && (
         <ClientDialog
           isOpen={!!editingClient}
@@ -185,8 +255,8 @@ export default function ClientList({ clients, onClientUpdated }: ClientListProps
           client={{
             id: editingClient.id,
             name: editingClient.name,
-            phone: editingClient.phoneNumber || editingClient.phone || '',
-            expiryDate: editingClient.expiryDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+            phone: editingClient.phoneNumber || editingClient.phone || '',  // 🔧 ADAPTADOR
+            expiryDate: editingClient.expiryDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()  // 🔧 FALLBACK: 30 días
           }}
         />
       )}

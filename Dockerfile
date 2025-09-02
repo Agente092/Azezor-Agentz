@@ -54,4 +54,4 @@ USER nextjs
 EXPOSE 3000 3001
 
 # Comando de inicio
-CMD ["npm", "run", "start:production"]
+CMD [\"npm\", \"run\", \"start:production\"]
